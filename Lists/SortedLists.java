@@ -5,6 +5,13 @@ import java.util.List;
 public class SortedLists
 {
 
+    /**
+     * Merge two sorted linked lists and return it as a new list.
+     * The new list should be made by splicing together the nodes of the first two lists.
+     * @param l1 ListNode
+     * @param l2 ListNode
+     * @return ListNode
+     */
     public ListNode mergeTwoLists(ListNode l1, ListNode l2)
     {
         ListNode answer = null;
@@ -68,8 +75,6 @@ public class SortedLists
         }
         return original;
     }
-
-
 }
 
  class ListNode {
