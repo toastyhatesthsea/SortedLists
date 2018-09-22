@@ -9,10 +9,12 @@ public class SortedLists
     {
         ListNode answer = new ListNode(0);
         ListNode current = l1;
+        ListNode previous = l1;
 
 
         while (current != null)
         {
+            previous = current;
             int l1Value = current.val;
             int l2Value = l2.val;
 
@@ -23,6 +25,7 @@ public class SortedLists
                 ListNode aNewValue = new ListNode(l2Value);
                 aNewValue.next = current;
                 l2 = l2.next;
+                current = current.next;
             }
             else
             {
@@ -30,11 +33,46 @@ public class SortedLists
                 ListNode aNewValue = new ListNode(l2Value);
                 current.next = aNewValue;
                 aNewValue.next = l2NextNode;
+                current = current.next;
+                l2 = l2.next;
+
+                int currentValue = current.val;
+                if (current.next != null)
+                {
+                    int nextCurrentValue = current.next.val;
+
+                    while (current != null && currentValue == nextCurrentValue)
+                    {
+                        current = current.next;
+                        if (current != null)
+                        {
+                            currentValue = current.val;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                        if (current.next != null)
+                        {
+                            nextCurrentValue = current.next.val;
+                        }
+                    }
+
+                }
+
             }
 
         }
 
-        return null;
+        while (l2 != null)
+        {
+            ListNode newNode = new ListNode(l2.val);
+            previous.next = newNode;
+            previous = previous.next;
+            l2 = l2.next;
+        }
+
+        return l1;
     }
 
 
@@ -62,12 +100,15 @@ class Testers
     {
         SortedLists aListers = new SortedLists();
 
-        ListNode l1 = new ListNode(2);
-        ListNode l2 = new ListNode(3);
+        ListNode l1 = new ListNode(1);
+        l1.next = new ListNode(2);
+        l1.next.next = new ListNode(3);
 
-        l1.next = l2;
+        ListNode l2 = new ListNode(2);
+        l2.next = new ListNode(3);
+        l2.next.next = new ListNode(4);
 
-        l1.toString();
+        ListNode answer = aListers.mergeTwoLists(l1, l2);
 
 
     }
