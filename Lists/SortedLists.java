@@ -8,6 +8,7 @@ public class SortedLists
     public ListNode mergeTwoLists(ListNode l1, ListNode l2)
     {
         ListNode answer = null;
+        ListNode original = answer;
         ListNode current = l1;
         ListNode previous = l1;
 
@@ -16,7 +17,7 @@ public class SortedLists
             return l2 == null ? l1 : l2;
         }
 
-        while (l1 != null || l2 != null)
+        while (l1 != null && l2 != null)
         {
             int l1Value = l1.val;
             int l2Value = l2.val;
@@ -36,6 +37,7 @@ public class SortedLists
             if (answer == null)
             {
                 answer = new ListNode(valueToAdd);
+                original = answer;
             }
             else
             {
@@ -64,7 +66,7 @@ public class SortedLists
                 l2 = l2.next;
             }
         }
-        return answer;
+        return original;
     }
 
 
@@ -92,13 +94,15 @@ class Testers
     {
         SortedLists aListers = new SortedLists();
 
-        ListNode l1 = new ListNode(1);
+        ListNode l1 = new ListNode(2);
         l1.next = new ListNode(2);
         l1.next.next = new ListNode(3);
+        l1.next.next.next = new ListNode(3);
 
         ListNode l2 = new ListNode(2);
         l2.next = new ListNode(3);
         l2.next.next = new ListNode(4);
+        l2.next.next.next = new ListNode(5);
 
         ListNode answer = aListers.mergeTwoLists(l1, l2);
 
