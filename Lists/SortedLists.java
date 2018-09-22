@@ -7,72 +7,64 @@ public class SortedLists
 
     public ListNode mergeTwoLists(ListNode l1, ListNode l2)
     {
-        ListNode answer = new ListNode(0);
+        ListNode answer = null;
         ListNode current = l1;
         ListNode previous = l1;
 
-
-        while (current != null)
+        if (l1 == null || l2 == null)
         {
-            previous = current;
-            int l1Value = current.val;
+            return l2 == null ? l1 : l2;
+        }
+
+        while (l1 != null || l2 != null)
+        {
+            int l1Value = l1.val;
             int l2Value = l2.val;
+            int valueToAdd;
 
-            ListNode l2Link = l2.next;
-
-            if (l1Value >= l2Value)
+            if (l1Value <= l2Value)
             {
-                ListNode aNewValue = new ListNode(l2Value);
-                aNewValue.next = current;
-                l2 = l2.next;
-                current = current.next;
+                valueToAdd = l1Value;
+                l1 = l1.next;
             }
             else
             {
-                ListNode l2NextNode = current.next;
-                ListNode aNewValue = new ListNode(l2Value);
-                current.next = aNewValue;
-                aNewValue.next = l2NextNode;
-                current = current.next;
+                valueToAdd = l2Value;
                 l2 = l2.next;
-
-                int currentValue = current.val;
-                if (current.next != null)
-                {
-                    int nextCurrentValue = current.next.val;
-
-                    while (current != null && currentValue == nextCurrentValue)
-                    {
-                        current = current.next;
-                        if (current != null)
-                        {
-                            currentValue = current.val;
-                        }
-                        else
-                        {
-                            break;
-                        }
-                        if (current.next != null)
-                        {
-                            nextCurrentValue = current.next.val;
-                        }
-                    }
-
-                }
-
             }
 
+            if (answer == null)
+            {
+                answer = new ListNode(valueToAdd);
+            }
+            else
+            {
+                ListNode aNewNode = new ListNode(valueToAdd);
+                answer.next = aNewNode;
+                answer = answer.next;
+            }
         }
 
-        while (l2 != null)
+        if (l1 != null)
         {
-            ListNode newNode = new ListNode(l2.val);
-            previous.next = newNode;
-            previous = previous.next;
-            l2 = l2.next;
+            while (l1 != null)
+            {
+                ListNode aNewNode = new ListNode(l1.val);
+                answer.next = aNewNode;
+                answer = answer.next;
+                l1 = l1.next;
+            }
+        } else if (l2 != null)
+        {
+            while (l2 != null)
+            {
+                ListNode aNewNode = new ListNode(l2.val);
+                answer.next = aNewNode;
+                answer = answer.next;
+                l2 = l2.next;
+            }
         }
-
-        return l1;
+        return answer;
     }
 
 
